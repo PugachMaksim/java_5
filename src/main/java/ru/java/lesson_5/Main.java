@@ -33,21 +33,25 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        HashMap<String, List<Telephone>> catalog = new HashMap<>();
+        HashMap<String, List<Integer>> catalog = new HashMap<>();
 
-        for (String tel : telephone) {
-            String[] contact = tel.split(" ");
-            int a = Integer.parseInt(contact[1]);
-            Telephone cont = new Telephone(contact[0], a);
+        for (String item : telephone) {
+            String[] contact = item.split(" ");
+            //int a = Integer.parseInt(contact[1]);
+
+            //Telephone cont = new Telephone(contact[0], a);
+
             if (catalog.containsKey(contact[0])) {
-                catalog.get(contact[0]).add(cont);
+                List<Integer> lst = catalog.get(contact[0]);
+                lst.add(Integer.parseInt(contact[1]));
+                catalog.get(contact[0]).add(Integer.parseInt(contact[1]));
             }
             else {
-                ArrayList<Telephone> lst = new ArrayList<>();
-                lst.add(cont);
+                ArrayList<Integer> lst = new ArrayList<>();
+                lst.add(Integer.parseInt(contact[1]));
                 catalog.put(contact[0], lst);
             }
-//        }
+        }
             boolean flag = true;
             while (flag) {
 
@@ -65,20 +69,34 @@ public class Main {
                         sc.nextLine();
                         System.out.println("Введите номер телефона: ");
                         int tlf = sc.nextInt();
-                        Telephone NewCont = new Telephone(SN, tlf);
 
                         if (catalog.containsKey(SN)) {
-                            catalog.get(SN).add(NewCont);
-                        } else {
-                            ArrayList<Telephone> lst = new ArrayList<>();
-                            lst.add(NewCont);
+                            List<Integer> lst = catalog.get(SN);
+                            lst.add(tlf);
+                            catalog.get(SN).add(tlf);
+                        }
+                        else {
+                            ArrayList<Integer> lst = new ArrayList<>();
+                            lst.add(tlf);
                             catalog.put(SN, lst);
                         }
+
+
+//                        Telephone NewCont = new Telephone(SN, tlf);
+//
+//                        if (catalog.containsKey(SN)) {
+//                            catalog.get(SN).add(NewCont);
+//                        }
+//                        else {
+//                            ArrayList<Telephone> lst = new ArrayList<>();
+//                            lst.add(NewCont);
+//                            catalog.put(SN, lst);
+//                        }
                     }
                     case 2 -> {
                         String poise = sc.next();
                         //sc.nextLine();
-                        List<Telephone> lst2 = catalog.get(poise);
+                        List<Integer> lst2 = catalog.get(poise);
                         if (lst2 != null) {
                             System.out.println(lst2);
                         }
@@ -88,4 +106,3 @@ public class Main {
             }
         }
     }
-}
